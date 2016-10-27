@@ -1,0 +1,56 @@
+/* Nav */
+
+nav ul a,
+nav .brand-logo {
+  color: white;
+}
+
+/* Body */
+.fullscreen {
+  height: 100%;
+}
+
+/* Footer */
+
+footer.page-footer {
+  margin: 0;
+}
+
+/* General */
+html, body, .fullheight {
+  min-height: 100% !important;
+  height: 100%;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+/* Comments */
+.comment-user-text {
+  font-size: 15px;
+}
+
+.comment-body-text {
+  font-size: 12px;
+  color: #666;
+}
+
+.card-content a {
+  color: inherit;
+}
+
+.card-content a:hover {
+  opacity: .7;
+}
