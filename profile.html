@@ -66,7 +66,7 @@
                     </div>
                   </div>
                   <div class="row center">
-                    <input type="submit" class="white-text btn-large waves-effect waves-light teal lighten-1" value="Save" />
+                    <button id="btn" class="white-text btn-large waves-effect waves-light teal lighten-1">Save</button>
                   </div>
                 </form>
               </div>
@@ -80,7 +80,7 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.min.js"></script>
   <script>
-    $('#form').submit(function() {
+    $('#btn').click(function() {
       console.log(event)
       event.preventDefault()
       Materialize.toast('Profile saved!', 3000)
