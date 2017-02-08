@@ -3,22 +3,17 @@ Install python 2.7
 Install pip
 Install virtualenv:
 ```
-$ pip install virtualenv 
+$ pip install virtualenv
 ```
 
 ## Setup
 create virtual environment (specify path if default interpreter is python3):
 ```
-$ cd [HealthItForward/] 
+$ cd [HealthItForward/]
 $ virtualenv [-p path/to/python2.7] venv  
 ```
 
-install python dependencies using requirements.txt:
-```
-$ venv/bin/pip install -r requirements.txt  
-```
-
-activate virtual environment:
+t0 activate virtual environment:
 
     windows:
 ```
@@ -30,14 +25,21 @@ $ venv\Scripts\activate
 $ source venv/bin/activate   
 ```
 
-deactivate virtual environment:
+(to deactivate virtual environment):
 ```
 $ deactivate   
 ```
-    
+
+install python dependencies using requirements.txt:
+    make sure virtual enviroment is actiavted
+    ```
+    $ venv/bin/pip install -r requirements.txt  
+    ```
+
+
 ## Usage
-run server:
-    activate virtual environment 
+  run server:
+    make sure virtual environment is activated 
     navigate to django_site/ folder  
     ```
     $ python manage.py runserver  
