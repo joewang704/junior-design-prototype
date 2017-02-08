@@ -3,13 +3,13 @@ Install python 2.7
 Install pip
 Install virtualenv:
 ```
-$ pip install virtualenv 
+$ pip install virtualenv
 ```
 
 ## Setup
 create virtual environment (specify path if default interpreter is python3):
 ```
-$ cd [HealthItForward/] 
+$ cd [HealthItForward/]
 $ virtualenv [-p path/to/python2.7] venv  
 ```
 
@@ -34,10 +34,10 @@ deactivate virtual environment:
 ```
 $ deactivate   
 ```
-    
+
 ## Usage
-run server:
-    activate virtual environment 
+  run server:
+    activate virtual environment
     navigate to django_site/ folder  
     ```
     $ python manage.py runserver  
