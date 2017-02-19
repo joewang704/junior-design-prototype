@@ -10,6 +10,17 @@ nav .brand-logo {
   height: 100%;
 }
 
+.error {
+  color: red;
+  font-size: 13px;
+}
+
+.auth-link {
+  color: #666;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
 /* Footer */
 
 footer.page-footer {

@@ -3,52 +3,46 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>HealthItForward</title>
+  <title>Parallax Template - Materialize</title>
 
   {% load static %}
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static "css/materialize.css"%}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{% static "css/style.css"%}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static "css/bg.css"%}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <nav class="teal" role="navigation">
-    <div class="nav-wrapper container white-text">
-      <a id="logo-container" href="#" class="brand-logo">HealthItForward</a>
-      <ul class="right">
-        <li class="active"><a href="/logout/">Logout</a></li>
-      </ul>
-      <ul class="right">
-        <li><a href="forums">Forums</a></li>
-      </ul>
-      <ul class="right">
-        <li><a href="profile">Profile</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div id="index-banner" class="parallax-container" style="background-image:url(/static/background2.jpeg); background-size: cover;">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <br><br>
-        <h3 class="header center white-text">Search for specific diseases, forums, or posts</h3>
-        <div class="row center">
+  <div class="container fullheight valign-wrapper" style="width: 100%;">
+    <div class="card white left" style="margin-left: 40px; width: 50%">
+      <form action="/login/" method="post" class="col s12">{% csrf_token %}
+        <div class="card-content" style="margin-left: 20px; margin-right: 20px;">
+          <div class="row">
+            <span class="card-title">Log In</span>
+          </div>
+          <div class="row">
+              <div class="row">
+                <div class="input-field col s12">
+                  {{ form.email }}
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  {{ form.password }}
+                  <label for="password">Password</label>
+                </div>
+              </div>
+              {% if errorMsg %}
+                <span class="error">{{ errorMsg }}</span><br /><br />
+              {% endif %}
+              <div class="row" style="color: white">
+                <input type="submit" style="margin-left: 10px;" class="btn-large waves-effect waves-light teal lighten-1">Sign Up</a>
+              </div>
+              <a class="auth-link" href="/register">Don't have an account? Register here</a>
+          </div>
         </div>
-        <form action="search_results">
-          <div class="row" style="color: #fff">
-            <div class="input-field col s6 offset-s3">
-              <i class="material-icons prefix">search</i>
-              <input id="icon_prefix" type="text" class="validate">
-              <label for="icon_prefix">Search</label>
-            </div>
-          </div>
-          <div class="row center">
-            <a href="search_results" id="button" class="btn-large waves-effect waves-light teal lighten-1">Search</a>
-          </div>
-        </form>
-        <br><br>
-
-      </div>
+      </form>
     </div>
   </div>
 
@@ -58,8 +52,6 @@
         <div class="col l6 s12">
           <h5 class="white-text">Company Bio</h5>
           <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
         </div>
         <div class="col l3 s12">
           <h5 class="white-text">Settings</h5>
@@ -88,12 +80,11 @@
     </div>
   </footer>
 
-
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static "js/materialize.min.js"%}"></script>
-  <script>
-  </script>
 
   </body>
 </html>
+
+
