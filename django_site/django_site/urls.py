@@ -20,6 +20,9 @@ from django.conf.urls.static import static
 from forum import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.entry, name='entry'),
+    url(r'^register/', views.register, name='register'),
+    url(r'^login/', views.login, name='login'),
+    url(r'^index/', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
