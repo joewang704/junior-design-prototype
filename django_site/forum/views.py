@@ -26,11 +26,7 @@ def entry(request):
 def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user)
-        print "a"
         if (form.is_valid()):
-            print "b"
-            #fname = form.cleaned_data['fname']
-            #lname = form.cleaned_data['fname']
             user = form.save(commit='False')
             print user.first_name
             user.save()
