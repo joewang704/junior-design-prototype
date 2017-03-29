@@ -1,17 +1,36 @@
 from django import forms
+from django.contrib.auth.models import User
+
 
 class RegisterForm(forms.Form):
     fname = forms.CharField(label='First Name',
-        widget=forms.TextInput(attrs={'class':'validate', 'required':'required'}))
+                            widget=forms.TextInput(attrs={'class': 'validate', 'required': 'required'}))
     lname = forms.CharField(label='Last Name',
-        widget=forms.TextInput(attrs={'class':'validate'}))
+                            widget=forms.TextInput(attrs={'class': 'validate'}))
     email = forms.EmailField(label='Email',
-        widget=forms.TextInput(attrs={'class':'validate', 'type': 'email'}))
+                             widget=forms.TextInput(attrs={'class': 'validate', 'type': 'email'}))
     password = forms.CharField(label='Password',
-        widget=forms.PasswordInput(attrs={'class':'validate'}))
+                               widget=forms.PasswordInput(attrs={'class': 'validate'}))
+
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email',
-        widget=forms.TextInput(attrs={'class':'validate', 'type': 'email'}))
+                             widget=forms.TextInput(attrs={'class': 'validate', 'type': 'email'}))
     password = forms.CharField(label='Password',
-        widget=forms.PasswordInput(attrs={'class':'validate'}))
+                               widget=forms.PasswordInput(attrs={'class': 'validate'}))
+
+
+class ProfileForm(forms.ModelForm):
+    # jgluck: not sure the best place to put this?
+    ROLES = (('1', 'Patient'), ('2', 'Resource'))
+    class Meta:
+        model=User
+        fields=['first_name', 'last_name']
+
+    first_name = forms.CharField(label='First Name',
+                            widget=forms.TextInput(attrs={'class': 'validate', 'required': 'required'}))
+    last_name = forms.CharField(label='Last Name',
+                            widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    # role = forms.ChoiceField(label='Role/Profession',
+    #                          widget=forms.Select, choices=ROLES)
