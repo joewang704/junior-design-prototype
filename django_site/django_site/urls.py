@@ -27,5 +27,8 @@ urlpatterns = [
     url(r'^profile/', views.profile, name='profile'),
     url(r'^index/', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
-    url(r'^app/', include('forum.urls')),
+    url(r'^forums/', views.forums),
+    url(r'^forums/', views.forums, name='forums'),
+    url(r'^forum/(?P<forumId>[0-9]*)', views.forum, name='forum'),
+    url(r'^createForum/', views.createForum, name='createForum'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

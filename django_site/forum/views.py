@@ -38,7 +38,7 @@ def createForum(request):
             forum = Forum.objects.create(title=title)
             forum.save()
             print forum.id
-            return HttpResponseRedirect('/app/forum/'+str(forum.id))
+            return HttpResponseRedirect('/forum/'+str(forum.id))
     template = loader.get_template('new_forum.html')
     context={ 'form': ForumForm }
     return HttpResponse(template.render(context, request))
@@ -88,7 +88,7 @@ def register(request):
                 )
                 user = authenticate(username=email, password=password)
                 auth_login(request, user)
-                return HttpResponseRedirect('/app/')
+                return HttpResponseRedirect('/')
             except IntegrityError:
                 errorMsg = 'User already exists'
     template = loader.get_template('register.html')
@@ -106,7 +106,7 @@ def login(request):
             user = authenticate(username=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                return HttpResponseRedirect('/app/')
+                return HttpResponseRedirect('/')
             else:
                 errorMsg = 'Username or password was not found'
     template = loader.get_template('login.html')
