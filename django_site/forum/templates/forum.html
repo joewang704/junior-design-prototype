@@ -19,21 +19,15 @@
             <div class="card white grey-text text-darken-3">
                 <div class="card-content">
                     <span class="card-title">Diabetes Forum Posts</span>
-                    <br>
-                    <br>
+                    <br><br>
 
-                    <a href="post.html"><br>Symptoms of Diabetes<br></a>
-                    <hr>
-                    <a href="post.html"><br>Am I at risk?</a>
-                    <hr>
-                    <a href="post.html"><br>Popular misconceptions about Diabetes<br></a>
-                    <hr>
-                    <a href="post.html"><br>Preventative steps to take<br></a>
-                    <hr>
+                    {% for post in posts %}
+                        <a href="/post/{{ post.id }}"><br>{{ post.title }}</a>
+                        <hr>
+                    {% endfor %}
 
-                    <br>
-                    <br>
-                    <a href="new_post.html"><span class="grey-text text-darken-1">Create New Post</span></a>
+                    <br><br>
+                    <a href="/createPost/{{ id }}"><span class="grey-text text-darken-1">Create New Post</span></a>
                     <br>
                 </div>
             </div>

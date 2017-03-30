@@ -5,24 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>HealthItForward</title>
 
+  {% load static %}
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <nav class="teal" role="navigation">
-    <div class="nav-wrapper container white-text">
-      <a id="logo-container" href="index.html" class="brand-logo">HealthItForward</a>
-      <ul class="right">
-        <li><a href="forums.html">Forums</a></li>
-      </ul>
-      <ul class="right">
-        <li><a href="profile.html">Profile</a></li>
-      </ul>
-    </div>
-  </nav>
-
+{% include "partials/partial_navigation.html" %}
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="container">
@@ -30,20 +20,22 @@
           <div class="card-content">
             <span class="card-title">Create New Post</span>
             <div class="row">
-              <form action="post.html" class="col s12">
+              <form method="post" class="col s12"> {% csrf_token %}
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="title" type="text">
+                    {{ form.title }}
                     <label for="title">Title</label>
                   </div>
                 </div>
 								<div class="row">
                   <div class="input-field col s12">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+                    {{ form.text }}
                     <label for="textarea1">Textarea</label>
                   </div>
                 </div>
-                <a href="post.html" class="white-text btn-large waves-effect waves-light teal lighten-1">Create</a>
+                <button type="submit" style="margin-left: 10px;" class="btn-large waves-effect waves-light teal lighten-1">
+                  Create
+                </button>
               </form>
             </div>
             <br>
@@ -55,7 +47,7 @@
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.min.js"></script>
+  <script src="{% static "js/materialize.min.js"%}"></script>
 
   </body>
 </html>

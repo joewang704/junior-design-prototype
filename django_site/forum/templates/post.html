@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>HealthItForward</title>
+  <title>Edit Profile</title>
 
   {% load static %}
   <!-- CSS  -->
@@ -18,21 +18,32 @@
       <div class="container">
         <div class="card white grey-text text-darken-3">
           <div class="card-content">
-            <span class="card-title">Create New Forum</span>
-            <div class="row">
-              <form method="post" class="col s12"> {% csrf_token %}
-                <div class="row">
-                  <div class="input-field col s12">
-                    {{ form.title }}
-                    <label for="title">Title</label>
-                  </div>
-                </div>
-                <div class="row" style="color: white">
-                  <input type="submit" style="margin-left: 10px;" class="btn-large waves-effect waves-light teal lighten-1">
-                </div>
-              </form>
-            </div>
+            <span class="card-title">{{ post.title }}</span>
             <br>
+            <br>
+            {{ post.text }}
+            <br>
+            <br>
+            <br>
+
+            <span style="font-size:20px;">Comments</span>
+            <form action="/createComment/{{ post.id }}/" method="post" class="col s12"> {% csrf_token %}
+              <!--<textarea id="textarea1" class="materialize-textarea" placeholder="Add a comment..."></textarea>-->
+              {{ form.text }}
+              <button type="submit" class="btn waves-effect waves-light teal lighten-1">
+                Submit
+              </button>
+            </form>
+            {% for comment in comments %}
+                <br><br>
+                <span class="comment-user-text">
+                  {{ comment.user.first_name }} {{ comment.user.last_name }}
+                </span>
+                <br>
+                <span class="comment-body-text">
+                  {{ comment.text }}
+                </span>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -45,4 +56,5 @@
 
   </body>
 </html>
+
 

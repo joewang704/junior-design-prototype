@@ -37,5 +37,18 @@ class ProfileForm(forms.ModelForm):
 
 class ForumForm(forms.Form):
     title = forms.CharField(label='Title',
-        widget=forms.TextInput(attrs={'class':'validate', 'required': 'required'}))
+                        widget=forms.TextInput(attrs={'class':'validate', 'required': 'required'}))
+
+class PostForm(forms.Form):
+    title = forms.CharField(label='Title',
+                        widget=forms.TextInput(attrs={'class':'validate', 'required': 'required'}))
+    text = forms.CharField(label='Text',
+                        widget=forms.Textarea(attrs={'class':'validate materialize-textarea',
+                                                     'required': 'required'}))
+
+class CommentForm(forms.Form):
+    text = forms.CharField(label='Text',
+            widget=forms.Textarea(attrs={'class':'validate materialize-textarea',
+                                         'required': 'required',
+                                         'placeholder': 'Add a comment...'}))
 
