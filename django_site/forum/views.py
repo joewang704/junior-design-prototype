@@ -1,10 +1,11 @@
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .forms import RegisterForm, LoginForm, ProfileForm
+from .forms import RegisterForm, LoginForm, ProfileForm, ForumForm
 from .auth import createuser
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from .models import Forum
 
 
 @login_required
@@ -13,6 +14,34 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+@login_required
+def forums(request):
+    forums = Forum.objects.all()
+    print forums
+    template = loader.get_template('forums.html')
+    context={ 'forums': forums }
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def forum(request, forumId):
+    print(forumId)
+    template = loader.get_template('forum.html')
+    context={}
+    return HttpResponse(template.render(context, request))
+
+# TODO: admin required
+def createForum(request):
+    if request.method == 'POST':
+        form = ForumForm(request.POST)
+        if (form.is_valid()):
+            title = form.cleaned_data['title']
+            forum = Forum.objects.create(title=title)
+            forum.save()
+            print forum.id
+            return HttpResponseRedirect('/app/forum/'+str(forum.id))
+    template = loader.get_template('new_forum.html')
+    context={ 'form': ForumForm }
+    return HttpResponse(template.render(context, request))
 
 def entry(request):
     template = loader.get_template('entry.html')
@@ -59,7 +88,7 @@ def register(request):
                 )
                 user = authenticate(username=email, password=password)
                 auth_login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/app/')
             except IntegrityError:
                 errorMsg = 'User already exists'
     template = loader.get_template('register.html')
@@ -77,7 +106,7 @@ def login(request):
             user = authenticate(username=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/app/')
             else:
                 errorMsg = 'Username or password was not found'
     template = loader.get_template('login.html')

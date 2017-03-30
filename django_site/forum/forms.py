@@ -34,3 +34,8 @@ class ProfileForm(forms.ModelForm):
 
     # role = forms.ChoiceField(label='Role/Profession',
     #                          widget=forms.Select, choices=ROLES)
+
+class ForumForm(forms.Form):
+    title = forms.CharField(label='Title',
+        widget=forms.TextInput(attrs={'class':'validate', 'required': 'required'}))
+
