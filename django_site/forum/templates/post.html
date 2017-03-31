@@ -34,16 +34,20 @@
                 Submit
               </button>
             </form>
-            {% for comment in comments %}
-                <br><br>
-                <span class="comment-user-text">
-                  {{ comment.user.first_name }} {{ comment.user.last_name }}
-                </span>
-                <br>
-                <span class="comment-body-text">
-                  {{ comment.text }}
-                </span>
-            {% endfor %}
+            {% if not comments %}
+              <br><br>No comments yet
+            {% else %}
+              {% for comment in comments %}
+                  <br><br>
+                  <span class="comment-user-text">
+                    {{ comment.user.first_name }} {{ comment.user.last_name }}
+                  </span>
+                  <br>
+                  <span class="comment-body-text">
+                    {{ comment.text }}
+                  </span>
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>

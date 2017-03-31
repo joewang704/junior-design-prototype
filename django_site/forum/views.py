@@ -26,7 +26,7 @@ def forums(request):
 @login_required
 def forum(request, forumId):
     template = loader.get_template('forum.html')
-    posts = Post.objects.filter(id=forumId)
+    posts = Post.objects.filter(forum=Forum.objects.get(id=forumId))
     context={ 'id': forumId, 'posts': posts }
     return HttpResponse(template.render(context, request))
 

@@ -16,15 +16,19 @@
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="container">
-        {% for forum in forums %}
-        <a href="/forum/{{ forum.id }}">
-            <div class="card white grey-text text-darken-3 hoverable">
-              <div class="card-content">
-                <span class="card-title">{{ forum.title }}</span>
+        {% if not forums %}
+          No forums available
+        {% else %}
+          {% for forum in forums %}
+          <a href="/forum/{{ forum.id }}">
+              <div class="card white grey-text text-darken-3 hoverable">
+                <div class="card-content">
+                  <span class="card-title">{{ forum.title }}</span>
+                </div>
               </div>
-            </div>
-          </a>
-        {% endfor %}
+            </a>
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
   </div>

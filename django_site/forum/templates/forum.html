@@ -21,10 +21,14 @@
                     <span class="card-title">Diabetes Forum Posts</span>
                     <br><br>
 
-                    {% for post in posts %}
-                        <a href="/post/{{ post.id }}"><br>{{ post.title }}</a>
-                        <hr>
-                    {% endfor %}
+                    {% if not posts %}
+                      No posts yet.<br>
+                    {% else %}
+                      {% for post in posts %}
+                          <a href="/post/{{ post.id }}"><br>{{ post.title }}</a>
+                          <hr>
+                      {% endfor %}
+                    {% endif %}
 
                     <br><br>
                     <a href="/createPost/{{ id }}"><span class="grey-text text-darken-1">Create New Post</span></a>
