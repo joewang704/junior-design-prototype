@@ -11,6 +11,8 @@
     <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="{% static "css/bg.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="icon" href="{% static "favicon.ico" %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
 </head>
 <body>
 {% include "partials/partial_navigation.html" %}
@@ -84,7 +86,7 @@
 <script>
     $(function () {
         $('select').material_select();
-        $("#submit-profile-btn").click(function() {
+        $("#submit-profile-btn").click(function () {
             var num_diseases_selected = $("#interests li.active").size();
             if (num_diseases_selected == 0) {
                 Materialize.toast("At least one disease must be selected.", 2500);

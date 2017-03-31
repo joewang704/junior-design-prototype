@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="icon" href="{% static "favicon.ico" %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
 </head>
 <body>
 {% include "partials/partial_navigation.html" %}
@@ -22,12 +24,12 @@
                     <br><br>
 
                     {% if not posts %}
-                      No posts yet.<br>
+                        No posts yet.<br>
                     {% else %}
-                      {% for post in posts %}
-                          <a href="/post/{{ post.id }}"><br>{{ post.title }}</a>
-                          <hr>
-                      {% endfor %}
+                        {% for post in posts %}
+                            <a href="/post/{{ post.id }}"><br>{{ post.title }}</a>
+                            <hr>
+                        {% endfor %}
                     {% endif %}
 
                     <br><br>

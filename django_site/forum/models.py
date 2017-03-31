@@ -51,7 +51,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Forum(models.Model):
-     title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
 
 
 class Post(models.Model):

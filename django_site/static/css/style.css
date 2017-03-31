@@ -65,3 +65,26 @@ p {
 .card-content a:hover {
   opacity: .7;
 }
+
+@media only screen and (max-width: 768px) {
+  nav ul a {
+    padding: 0 12px;
+  }
+  nav .brand-logo {
+    left: initial;
+    webkit-transform: initial;
+    transform: initial;
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 399px) {
+  nav ul a {
+      font-size:0.8rem;
+      padding: 0 10px;
+  }
+  nav .brand-logo {
+      font-size: 12px;
+  }
+}
+
