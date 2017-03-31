@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .forms import RegisterForm, LoginForm, ProfileForm, ForumForm, PostForm, CommentForm
+from .forms import RegisterForm, LoginForm, ProfileForm, ForumForm, PostForm, CommentForm, UserForm
 from .auth import createuser
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -14,6 +14,7 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+
 @login_required
 def forums(request):
     forums = Forum.objects.all()
@@ -21,12 +22,14 @@ def forums(request):
     context={ 'forums': forums }
     return HttpResponse(template.render(context, request))
 
+
 @login_required
 def forum(request, forumId):
     template = loader.get_template('forum.html')
     posts = Post.objects.filter(id=forumId)
     context={ 'id': forumId, 'posts': posts }
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def post(request, postId):
@@ -37,6 +40,7 @@ def post(request, postId):
                'comments': Comment.objects.filter(post=post)
               }
     return HttpResponse(template.render(context, request))
+
 
 # TODO: admin required
 def createForum(request):
@@ -51,6 +55,7 @@ def createForum(request):
     context={ 'form': ForumForm }
     return HttpResponse(template.render(context, request))
 
+
 @login_required
 def createPost(request, forumId):
     if request.method == 'POST':
@@ -64,12 +69,13 @@ def createPost(request, forumId):
                                        text=text,
                                        forum=forum,
                                        user=user
-                                      )
+            )
             post.save()
             return HttpResponseRedirect('/post/'+str(post.id))
     template = loader.get_template('new_post.html')
-    context={ 'form': PostForm }
+    context = {'form': PostForm}
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def createComment(request, postId):
@@ -80,12 +86,13 @@ def createComment(request, postId):
             post = Post.objects.get(id=postId)
             user = request.user
             comment = Comment.objects.create(text=text,
-                                       post=post,
-                                       user=user
-                                      )
+                                             post=post,
+                                             user=user
+            )
             comment.save()
             return HttpResponseRedirect('/post/'+str(postId))
     return HttpResponse(status=404)
+
 
 def entry(request):
     template = loader.get_template('entry.html')
@@ -97,20 +104,34 @@ def entry(request):
 
 @login_required
 def profile(request):
+    error_msg = ""
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user)
-        if (form.is_valid()):
-            user = form.save(commit='False')
-            user.save()
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+        else:
+            error_msg = "Please choose at least one disease."
     template = loader.get_template('profile.html')
-    data = {'first_name': request.user.first_name,
-            'last_name': request.user.last_name,
-            }
-    profile_form = ProfileForm(data)
-    context = {'form': profile_form,
-               'email': request.user.email,
-               }
-    return HttpResponse(template.render(context, request))
+    profile_data = {
+        'is_patient': request.user.profile.is_patient,
+        'disease_interests': request.user.profile.disease_interests,
+    }
+    user_data = {
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+    }
+    profile_form = ProfileForm(profile_data)
+    user_form = UserForm(user_data)
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'email': request.user.email,
+        'error_msg': error_msg
+    }
+    status = 200 if error_msg == "" else 400
+    return HttpResponse(template.render(context, request), status=status)
 
 
 def register(request):

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-    <title>Edit Profile</title>
+    <title>HealthItForward</title>
 
 
     {% load static %}
@@ -37,11 +37,11 @@
                         <form id="form" class="col s12" method="post">{% csrf_token %}
                             <div class="row">
                                 <div class="input-field col s6">
-                                    {{ form.first_name }}
+                                    {{ user_form.first_name }}
                                     <label for="first_name">First Name</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    {{ form.last_name }}
+                                    {{ user_form.last_name }}
                                     <label for="last_name">Last Name</label>
                                 </div>
                             </div>
@@ -54,24 +54,18 @@
                             {#                            </div>#}
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <select id="role">
-                                        <option value="Resource">Resource</option>
-                                        <option value="Patient">Patient</option>
-                                    </select>
+                                    {{ profile_form.is_patient }}
                                     <label>Role/Profession</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <select id="interests" multiple>
-                                        <option value="Alzheimers">Alzheimers</option>
-                                        <option value="Parkinsons">Parkinsons</option>
-                                    </select>
+                                <div class="input-field col s12" id="interests">
+                                    {{ profile_form.disease_interests }}
                                     <label for="interests">Diseases I'm interested in following</label>
                                 </div>
                             </div>
                             <div class="row center">
-                                <button type="submit" id="btn"
+                                <button type="submit" id="submit-profile-btn"
                                         class="white-text btn-large waves-effect waves-light teal lighten-1">
                                     Save
                                 </button>
@@ -90,14 +84,22 @@
 <script>
     $(function () {
         $('select').material_select();
+        $("#submit-profile-btn").click(function() {
+            var num_diseases_selected = $("#interests li.active").size();
+            if (num_diseases_selected == 0) {
+                Materialize.toast("At least one disease must be selected.", 2500);
+            }
+        });
         $("#form").submit(function () {
-
             $.ajax({
                 type: "POST",
                 url: "/profile/",
                 data: $(this).serialize(),
                 success: function () {
                     Materialize.toast('Profile saved!', 3000);
+                },
+                error: function (request, error) {
+                    Materialize.toast("Error with input.", 3000);
                 }
             });
             return false;

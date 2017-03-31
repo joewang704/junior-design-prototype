@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from models import Profile
 
 
 class RegisterForm(forms.Form):
@@ -20,35 +21,43 @@ class LoginForm(forms.Form):
                                widget=forms.PasswordInput(attrs={'class': 'validate'}))
 
 
-class ProfileForm(forms.ModelForm):
-    # jgluck: not sure the best place to put this?
-    ROLES = (('1', 'Patient'), ('2', 'Resource'))
+class UserForm(forms.ModelForm):
     class Meta:
-        model=User
-        fields=['first_name', 'last_name']
+        model = User
+        fields = ["first_name", "last_name"]
 
     first_name = forms.CharField(label='First Name',
-                            widget=forms.TextInput(attrs={'class': 'validate', 'required': 'required'}))
+                                 widget=forms.TextInput(attrs={'class': 'validate', 'required': 'required'}))
     last_name = forms.CharField(label='Last Name',
-                            widget=forms.TextInput(attrs={'class': 'validate'}))
+                                widget=forms.TextInput(attrs={'class': 'validate'}))
 
-    # role = forms.ChoiceField(label='Role/Profession',
-    #                          widget=forms.Select, choices=ROLES)
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['is_patient', 'disease_interests']
+
+    ROLES = (('0', 'Patient'), ('1', 'Resource'))
+    is_patient = forms.ChoiceField(label='Role/Profession',
+                                   widget=forms.Select, choices=ROLES)
+    disease_interests = forms.MultipleChoiceField(widget=forms.SelectMultiple, choices=Profile.DISEASE_CHOICES)
+
 
 class ForumForm(forms.Form):
     title = forms.CharField(label='Title',
-                        widget=forms.TextInput(attrs={'class':'validate', 'required': 'required'}))
+                            widget=forms.TextInput(attrs={'class': 'validate', 'required': 'required'}))
+
 
 class PostForm(forms.Form):
     title = forms.CharField(label='Title',
-                        widget=forms.TextInput(attrs={'class':'validate', 'required': 'required'}))
+                            widget=forms.TextInput(attrs={'class': 'validate', 'required': 'required'}))
     text = forms.CharField(label='Text',
-                        widget=forms.Textarea(attrs={'class':'validate materialize-textarea',
-                                                     'required': 'required'}))
+                           widget=forms.Textarea(attrs={'class': 'validate materialize-textarea',
+                                                        'required': 'required'}))
+
 
 class CommentForm(forms.Form):
     text = forms.CharField(label='Text',
-            widget=forms.Textarea(attrs={'class':'validate materialize-textarea',
-                                         'required': 'required',
-                                         'placeholder': 'Add a comment...'}))
-
+                           widget=forms.Textarea(attrs={'class': 'validate materialize-textarea',
+                                                        'required': 'required',
+                                                        'placeholder': 'Add a comment...'}))
