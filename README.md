@@ -31,7 +31,7 @@ $ deactivate
 ```
 
 install python dependencies using requirements.txt:
-    make sure virtual enviroment is actiavted
+    make sure virtual environment is activated
     ```
     $ venv/bin/pip install -r requirements.txt  
     ```
@@ -48,3 +48,10 @@ install python dependencies using requirements.txt:
 ## Coding Conventions
     Follow PEP8    
     Use four spaces for python
+
+## Problems
+If no relation is found from users to profile try:
+```
+$ python django_site/manage.py shell < add_profile_to_user.py
+```
+
