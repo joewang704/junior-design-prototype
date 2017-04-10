@@ -23,16 +23,16 @@
             <h3 class="header center white-text">Search for specific diseases, forums, or posts</h3>
             <div class="row center">
             </div>
-            <form action="search_results">
+            <form action="/search_results/" method="post">{% csrf_token %}
                 <div class="row" style="color: #fff">
                     <div class="input-field col s6 offset-s3">
                         <i class="material-icons prefix">search</i>
-                        <input id="icon_prefix" type="text" class="validate">
+                        <input id="icon_prefix" name="search_text" type="text" class="validate">
                         <label for="icon_prefix">Search</label>
                     </div>
                 </div>
                 <div class="row center">
-                    <a href="search_results" id="button" class="btn-large waves-effect waves-light teal lighten-1">Search</a>
+                    <button id="button" type="submit" class="btn-large waves-effect waves-light teal lighten-1">Search</button>
                 </div>
             </form>
             <br><br>

@@ -21,6 +21,9 @@ class LoginForm(forms.Form):
                                widget=forms.PasswordInput(attrs={'class': 'validate'}))
 
 
+class SearchForm(forms.Form):
+    search_text = forms.CharField(label='Search', max_length=100)
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User

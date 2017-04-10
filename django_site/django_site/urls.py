@@ -21,11 +21,11 @@ from forum import views
 
 urlpatterns = [
     url(r'^$', views.entry, name='entry'),
+    url(r'^search_results/', views.search_results, name='search_results'),
     url(r'^register/', views.register, name='register'),
     url(r'^login/', views.login, name='login'),
     url(r'^logout/', views.logout, name='logout'),
     url(r'^profile/', views.profile, name='profile'),
-    url(r'^index/', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^forums/', views.forums),
     url(r'^forums/', views.forums, name='forums'),

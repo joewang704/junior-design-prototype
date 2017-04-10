@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .forms import RegisterForm, LoginForm, ProfileForm, ForumForm, PostForm, CommentForm, UserForm
+from .forms import RegisterForm, LoginForm, ProfileForm, ForumForm, PostForm, CommentForm, UserForm, SearchForm
 from .auth import createuser
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -16,10 +16,27 @@ def index(request):
 
 
 @login_required
+def search_results(request):
+    search_text = ''
+    results = []
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            search_text = form.cleaned_data['search_text']
+            # TODO: just searching titles of posts for now...
+            results = Post.objects.filter(title__contains=search_text)
+            # print search_text
+    template = loader.get_template('search_results.html')
+
+    context = {'search_text': search_text, 'results': results}
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
 def forums(request):
     forums = Forum.objects.all()
     template = loader.get_template('forums.html')
-    context={ 'forums': forums }
+    context = {'forums': forums}
     return HttpResponse(template.render(context, request))
 
 
@@ -28,7 +45,7 @@ def forum(request, forumId):
     template = loader.get_template('forum.html')
     forum = Forum.objects.get(id=forumId)
     posts = Post.objects.filter(forum=forum)
-    context={ 'id': forumId, 'posts': posts, 'title': forum.title }
+    context = {'id': forumId, 'posts': posts, 'title': forum.title}
     return HttpResponse(template.render(context, request))
 
 
@@ -39,7 +56,7 @@ def post(request, postId):
     context = {'post': post,
                'form': CommentForm,
                'comments': Comment.objects.filter(post=post)
-              }
+               }
     return HttpResponse(template.render(context, request))
 
 
@@ -47,13 +64,13 @@ def post(request, postId):
 def createForum(request):
     if request.method == 'POST':
         form = ForumForm(request.POST)
-        if (form.is_valid()):
+        if form.is_valid():
             title = form.cleaned_data['title']
             forum = Forum.objects.create(title=title)
             forum.save()
-            return HttpResponseRedirect('/forum/'+str(forum.id))
+            return HttpResponseRedirect('/forum/' + str(forum.id))
     template = loader.get_template('new_forum.html')
-    context={ 'form': ForumForm }
+    context = {'form': ForumForm}
     return HttpResponse(template.render(context, request))
 
 
@@ -70,9 +87,9 @@ def createPost(request, forumId):
                                        text=text,
                                        forum=forum,
                                        user=user
-            )
+                                       )
             post.save()
-            return HttpResponseRedirect('/post/'+str(post.id))
+            return HttpResponseRedirect('/post/' + str(post.id))
     template = loader.get_template('new_post.html')
     context = {'form': PostForm}
     return HttpResponse(template.render(context, request))
@@ -89,9 +106,9 @@ def createComment(request, postId):
             comment = Comment.objects.create(text=text,
                                              post=post,
                                              user=user
-            )
+                                             )
             comment.save()
-            return HttpResponseRedirect('/post/'+str(postId))
+            return HttpResponseRedirect('/post/' + str(postId))
     return HttpResponse(status=404)
 
 
