@@ -41,6 +41,12 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            {{ form.is_patient }}
+                            <label for="is_patient">Role/Profession</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
                             {{ form.password }}
                             <label for="password">Password</label>
                         </div>
@@ -102,6 +108,29 @@
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{% static "js/materialize.min.js" %}"></script>
+<script>
 
+    $(function () {
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+        role_num = parseInt(getUrlParameter("r"));
+        if (role_num == 1) {
+           $("#id_is_patient").val(1);
+        }
+        $('select').material_select();
+    });
+</script>
 </body>
 </html>

@@ -20,10 +20,32 @@
         <div class="container">
             <div class="card white grey-text text-darken-3">
                 <div class="card-content">
-                    <span class="card-title">{{ post.title }}</span>
+                    <ul class="forum-breadcrumbs">
+                        <li>
+                            <a href="/forums/">Forums</a>
+                        </li>
+                        <li>
+                            <a href="/forum/{{ post.forum.id }}/"> {{ post.forum.title }} </a>
+                        </li>
+                        <li>
+                            {{ post.title }}
+                        </li>
+                    </ul>
+                    <div class="post-user">
+                     <span class="post-user-name">
+                         By: {{ post.user.first_name }} {{ post.user.last_name }}
+                     </span>
+                     <span class="post-user-role">
+                         {% if post.user.profile.is_patient == 0 %}
+                             (Patient)
+                         {% else %}
+                             (Resource)
+                         {% endif %}
+                     </span>
+                    </div>
                     <br>
                     <br>
-                    {{ post.text }}
+                     {{ post.text }}
                     <br>
                     <br>
                     <br>
@@ -43,7 +65,14 @@
                             <br><br>
                             <span class="comment-user-text">
                     {{ comment.user.first_name }} {{ comment.user.last_name }}
-                  </span>
+                            </span>
+                            <span class="comment-user-role">
+                             {% if comment.user.profile.is_patient == 0 %}
+                                 (Patient)
+                             {% else %}
+                                 (Resource)
+                             {% endif %}
+                            </span>
                             <br>
                             <span class="comment-body-text">
                     {{ comment.text }}

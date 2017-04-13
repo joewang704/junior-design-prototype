@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link rel="icon" href="{% static "favicon.ico"%}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static "favicon.ico"%}" type="image/x-icon">
+    <link rel="icon" href="{% static "favicon.ico" %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
 </head>
 <body>
 {% include "partials/partial_navigation.html" %}
@@ -23,7 +23,7 @@
             <h3 class="header center white-text">Search for specific diseases, forums, or posts</h3>
             <div class="row center">
             </div>
-            <form action="/search_results/" method="post">{% csrf_token %}
+            <form id="search-form" action="/search_results/" method="post">{% csrf_token %}
                 <div class="row" style="color: #fff">
                     <div class="input-field col s6 offset-s3">
                         <i class="material-icons prefix">search</i>
@@ -32,14 +32,16 @@
                     </div>
                 </div>
                 <div class="row center">
-                    <button id="button" type="submit" class="btn-large waves-effect waves-light teal lighten-1">Search</button>
+                    <button id="button" type="submit" class="btn-large waves-effect waves-light teal lighten-1">Search
+                    </button>
                 </div>
             </form>
-            <br><br>
-
+{#            <br><br>#}
+            {% include "partials/partial_search_results.html" %}
         </div>
     </div>
 </div>
+
 
 <footer class="page-footer teal">
     <div class="container">
@@ -84,6 +86,32 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{% static "js/materialize.min.js" %}"></script>
 <script>
+    $("#search-form").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "/search_results/",
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (data) {
+                var content = "";
+                if (data.titles.length == 0) {
+                    content = "No Results Found";
+                }
+                for (var i = 0; i < data.titles.length; i++) {
+                        content += "<a href=/post/" + data.ids[i] + "><br>" + data.titles[i] + "<br></a>";
+                }
+                $(".search-results span.card-title").html("Search Results for " + data.search_text);
+                $(".search-results-list").html(content);
+
+                $(".card.search-results").addClass("show");
+            },
+            error: function (request, error) {
+                console.log("post failed")
+            },
+        });
+        return false;
+
+    });
 </script>
 
 </body>

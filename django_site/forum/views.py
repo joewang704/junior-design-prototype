@@ -1,5 +1,5 @@
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from .forms import RegisterForm, LoginForm, ProfileForm, ForumForm, PostForm, CommentForm, UserForm, SearchForm
 from .auth import createuser
@@ -27,9 +27,11 @@ def search_results(request):
             results = Post.objects.filter(title__contains=search_text)
             # print search_text
     template = loader.get_template('search_results.html')
-
-    context = {'search_text': search_text, 'results': results}
-    return HttpResponse(template.render(context, request))
+    titles = [result.title for result in results]
+    ids = [result.id for result in results]
+    context = {'search_text': search_text, 'titles': titles, 'ids': ids}
+    return JsonResponse(context)
+#    return HttpResponse(template.render(context, request))
 
 
 @login_required
@@ -78,7 +80,7 @@ def createForum(request):
 def createPost(request, forumId):
     if request.method == 'POST':
         form = PostForm(request.POST)
-        if (form.is_valid()):
+        if form.is_valid():
             title = form.cleaned_data['title']
             text = form.cleaned_data['text']
             forum = Forum.objects.get(id=forumId)
@@ -99,7 +101,7 @@ def createPost(request, forumId):
 def createComment(request, postId):
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        if (form.is_valid()):
+        if form.is_valid():
             text = form.cleaned_data['text']
             post = Post.objects.get(id=postId)
             user = request.user
@@ -156,7 +158,7 @@ def register(request):
     errorMsg = ''
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        if (form.is_valid()):
+        if form.is_valid():
             email = form.cleaned_data['email']
             fname = form.cleaned_data['fname']
             lname = form.cleaned_data['lname']
@@ -169,6 +171,7 @@ def register(request):
                     password=password
                 )
                 user = authenticate(username=email, password=password)
+                user.profile.is_patient = form.cleaned_data['is_patient']
                 auth_login(request, user)
                 return HttpResponseRedirect('/')
             except IntegrityError:

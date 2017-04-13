@@ -13,6 +13,11 @@ class RegisterForm(forms.Form):
     password = forms.CharField(label='Password',
                                widget=forms.PasswordInput(attrs={'class': 'validate'}))
 
+    ROLES = (('0', 'Patient'), ('1', 'Resource'))
+
+    is_patient = forms.ChoiceField(label='Role/Profession',
+                                   widget=forms.Select, choices=ROLES)
+
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email',
@@ -23,6 +28,7 @@ class LoginForm(forms.Form):
 
 class SearchForm(forms.Form):
     search_text = forms.CharField(label='Search', max_length=100)
+
 
 class UserForm(forms.ModelForm):
     class Meta:

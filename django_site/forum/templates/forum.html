@@ -20,7 +20,17 @@
         <div class="container">
             <div class="card white grey-text text-darken-3">
                 <div class="card-content">
-                    <span class="card-title">{{ title }} Posts</span>
+                    <ul class="forum-breadcrumbs">
+                        <li>
+                            <a href="/forums/">Forums</a>
+                        </li>
+                        <li>
+                            {{ title }}
+                        </li>
+                    </ul>
+
+{#                    <span class="card-title"> <a href="/forums/"> Forums</span>#}
+{#                    <span class="card-title"> {{ title }} </span>#}
                     <br><br>
 
                     {% if not posts %}

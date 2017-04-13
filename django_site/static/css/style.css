@@ -54,6 +54,10 @@ p {
     font-size: 15px;
 }
 
+span.comment-user-role {
+    color: teal;
+}
+
 .comment-body-text {
     font-size: 12px;
     color: #666;
@@ -65,6 +69,26 @@ p {
 
 .card-content a:hover {
     opacity: .7;
+}
+
+.card.search-results {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.card.search-results.show {
+    visibility: visible;
+    opacity: 0.85;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+/* Posts */
+.post-user {
+    float: right;
+}
+
+.post-user .post-user-role {
+    color: teal;
 }
 
 #index-banner.parallax-container {
@@ -99,4 +123,44 @@ p {
     }
 }
 
+ul.forum-breadcrumbs {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: #eee;
+    font-size: 17px;
+}
+
+/* Display list items side by side */
+ul.forum-breadcrumbs li {
+    display: inline;
+    font-size: 25px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.forum-breadcrumbs li + li:before {
+    padding: 8px;
+    color: black;
+    content: '\E5CC';
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 25px;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Add a color to all links inside the list */
+ul.forum-breadcrumbs li a {
+    text-decoration: none;
+}
+
+ul.forum-breadcrumbs li:last-child {
+    color: teal;
+}
+
+/* Add a color on mouse-over */
+ul.forum-breadcrumbs li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
 
