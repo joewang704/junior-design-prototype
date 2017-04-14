@@ -21,6 +21,11 @@ nav .brand-logo {
     text-decoration: underline;
 }
 
+.entry-auth-link {
+    color: #dff3f1;
+}
+
+
 /* Footer */
 
 footer.page-footer {
