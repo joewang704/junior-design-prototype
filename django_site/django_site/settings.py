@@ -25,7 +25,7 @@ SECRET_KEY = '#jz490ge^=2q^2z6bm!y=*k#stl@oidjve2kr-&nqqtsgad(6#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["healthitforward-new.us-east-1.elasticbeanstalk.com"]
 
 
 # Application definition
