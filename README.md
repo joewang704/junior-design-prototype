@@ -55,3 +55,6 @@ If no relation is found from users to profile try:
 $ python django_site/manage.py shell < add_profile_to_user.py
 ```
 
+## Pushing changes to AWS
+Authorized users should have the AWS account credentials. To push changes go to https://console.aws.amazon.com/elasticbeanstalk -> All Applications -> Environments -> django_site -> HealthItForward-new 
+In Overview there should be an option to Upload and Deploy. Make sure to zip the root folder as django_site, NOT HealthItForward. after zipping, upload and the changes should be made.
