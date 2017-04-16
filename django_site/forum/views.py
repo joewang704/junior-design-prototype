@@ -24,7 +24,13 @@ def search_results(request):
         if form.is_valid():
             search_text = form.cleaned_data['search_text']
             # TODO: just searching titles of posts for now...
-            results = Post.objects.filter(title__contains=search_text)
+            results = []
+            for post in list(Post.objects.all()):
+                print post.title
+                print search_text
+                if search_text.lower() in post.title.lower():
+                    results.append(post)
+
             # print search_text
     template = loader.get_template('search_results.html')
     titles = [result.title for result in results]
