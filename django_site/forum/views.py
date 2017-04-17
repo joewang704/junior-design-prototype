@@ -31,7 +31,6 @@ def search_results(request):
             forum_ids = []
             for post in list(Post.objects.all()):
                 beg = post.title.lower().find(search_text.lower())
-                print beg
                 if beg != -1:
                     title = post.title[:beg] + "<strong><em>" + post.title[beg:beg + len(search_text)] + "</em></strong>" + post.title[beg + len(search_text):]
                     titles.append(title)
