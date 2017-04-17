@@ -76,6 +76,8 @@ span.comment-user-role {
     opacity: .7;
 }
 
+/* Search */
+
 .card.search-results {
     visibility: hidden;
     opacity: 0;
@@ -87,6 +89,10 @@ span.comment-user-role {
     opacity: 0.85;
     transition: visibility 0s, opacity 0.5s linear;
 }
+
+div.search-results-list>a {
+    margin-left: 20px;
+}
 /* Posts */
 .post-user {
     float: right;
@@ -97,7 +103,8 @@ span.comment-user-role {
 }
 
 #index-banner.parallax-container {
-    height: calc(100vh - 64px);
+    min-height: calc(100vh - 64px);
+    overflow: overlay;
 }
 
 @media only screen and (max-width: 768px) {

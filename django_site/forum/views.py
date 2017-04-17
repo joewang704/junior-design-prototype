@@ -25,17 +25,24 @@ def search_results(request):
             search_text = form.cleaned_data['search_text']
             # TODO: just searching titles of posts for now...
             results = []
+            titles = []
+            ids = []
+            p_forums = []
+            forum_ids = []
             for post in list(Post.objects.all()):
-                print post.title
-                print search_text
-                if search_text.lower() in post.title.lower():
+                beg = post.title.lower().find(search_text.lower())
+                print beg
+                if beg != -1:
+                    title = post.title[:beg] + "<strong><em>" + post.title[beg:beg + len(search_text)] + "</em></strong>" + post.title[beg + len(search_text):]
+                    titles.append(title)
+                    ids.append(post.id)
                     results.append(post)
+                    p_forums.append(post.forum.title)
+                    forum_ids.append(post.forum.id)
 
             # print search_text
     template = loader.get_template('search_results.html')
-    titles = [result.title for result in results]
-    ids = [result.id for result in results]
-    context = {'search_text': search_text, 'titles': titles, 'ids': ids}
+    context = {'search_text': search_text, 'titles': titles, 'ids': ids, 'p_forums': p_forums, 'forum_ids': forum_ids}
     return JsonResponse(context)
 #    return HttpResponse(template.render(context, request))
 

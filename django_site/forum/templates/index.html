@@ -47,31 +47,56 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{% static "js/materialize.min.js" %}"></script>
 <script>
-    $("#search-form").submit(function () {
-        $.ajax({
-            type: "POST",
-            url: "/search_results/",
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (data) {
-                var content = "";
-                if (data.titles.length == 0) {
-                    content = "No Results Found";
-                }
-                for (var i = 0; i < data.titles.length; i++) {
-                        content += "<a href=/post/" + data.ids[i] + "><br>" + data.titles[i] + "<br></a>";
-                }
-                $(".search-results span.card-title").html("Search Results for " + data.search_text);
-                $(".search-results-list").html(content);
+    $(function () {
+        $("#search-form").submit(function () {
+            $.ajax({
+                type: "POST",
+                url: "/search_results/",
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    var content = "";
+                    if (data.titles.length == 0) {
+                        content = "No Results Found";
+                    }
+                    var results = new Array();
+                    var found_forums = new Array();
+                    var found_forum_ids = new Array();
+                    for (var i = 0; i < data.titles.length; i++) {
+                        ind = found_forums.indexOf(data.p_forums[i]);
+                        if (ind == -1) {
+                            found_forums.push(data.p_forums[i]);
+                            found_forum_ids.push(data.forum_ids[i]);
+                            results.push(new Array());
+                            ind = results.length - 1;
+                        }
+                        results[ind].push({id: data.ids[i], title: data.titles[i]})
+                    }
+                    for (var i = 0; i < found_forums.length; i++) {
+                        content += "<h5> From <a href=/forum/" + found_forum_ids[i] + "><strong>" + found_forums[i] + "</strong>:</h5></a>";
+                        for (var j = 0; j < results[i].length; j++) {
+                            var id = results[i][j].id;
+                            var title = results[i][j].title;
+                            content += "<a href=/post/" + id + ">" + title + "</a><br>";
+                        }
 
-                $(".card.search-results").addClass("show");
-            },
-            error: function (request, error) {
-                console.log("post failed")
-            },
+                    }
+                    {#                for (var i = 0; i < data.titles.length; i++) {#}
+                    {#                        content += "<a href=/post/" + data.ids[i] + "><br>" + data.titles[i] + "<br></a>";#}
+                    {#                }#}
+                    $(".search-results span.card-title").html("Search Results for <em>" + data.search_text + "</em>");
+                    $(".search-results-list").html(content);
+
+                    $(".card.search-results").addClass("show");
+                    $("#search-form")[0].scrollIntoView();
+                },
+                error: function (request, error) {
+                    console.log("post failed")
+                },
+            });
+            return false;
+
         });
-        return false;
-
     });
 </script>
 
