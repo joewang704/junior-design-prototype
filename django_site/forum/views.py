@@ -38,8 +38,6 @@ def search_results(request):
                     results.append(post)
                     p_forums.append(post.forum.title)
                     forum_ids.append(post.forum.id)
-
-            # print search_text
     template = loader.get_template('search_results.html')
     context = {'search_text': search_text, 'titles': titles, 'ids': ids, 'p_forums': p_forums, 'forum_ids': forum_ids}
     return JsonResponse(context)
