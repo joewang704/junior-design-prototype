@@ -24,20 +24,9 @@ $ virtualenv [-p path/to/python2.7] venv
 
 3. Activate virtual environment:
 
-    Windows:
-```
-$ venv\Scripts\activate   
-```
+    Windows: ```$ venv\Scripts\activate```
 
-    Mac OS/Linux:
-```
-$ source venv/bin/activate   
-```
-
-(to deactivate virtual environment):
-```
-$ deactivate   
-```
+    Mac OS/Linux: ```$ source venv/bin/activate```
 
 ### Installation of actual application
 
