@@ -1,26 +1,35 @@
-## Installation
-Install python 2.7
-Install pip
-Install virtualenv:
-```
-$ pip install virtualenv
-```
+## Install Guide
+### Prerequisites
+- Python 2.7 and Pip
+    - https://www.python.org/downloads/
+    - When downloading Python 2.7 from this website, pip will be installed with it
+- Virtualenv
+    - Open a terminal window and run ```pip install virtualenv```
+    - Tutorial on how to open terminal on [Windows](https://www.quora.com/How-do-I-open-terminal-in-windows) or [Mac OS](http://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line)
 
-## Setup
-create virtual environment (specify path if default interpreter is python3):
+
+### Dependent libraries that must be installed
+- PostgreSQL
+    - https://www.postgresql.org/download/
+
+### Download instructions
+1. Clone the github repository
+    - https://help.github.com/articles/cloning-a-repository/
+2. Create virtual environment (specify path if default interpreter is python3):
 ```
 $ cd [HealthItForward/]
 $ virtualenv [-p path/to/python2.7] venv  
 ```
+(Note: anything in these blocks is meant to be run in terminal)
 
-t0 activate virtual environment:
+3. Activate virtual environment:
 
-    windows:
+    Windows:
 ```
 $ venv\Scripts\activate   
 ```
 
-    Posix:
+    Mac OS/Linux:
 ```
 $ source venv/bin/activate   
 ```
@@ -30,30 +39,26 @@ $ source venv/bin/activate
 $ deactivate   
 ```
 
-install python dependencies using requirements.txt:
+### Installation of actual application
+
+1. Install python dependencies using requirements.txt:
     make sure virtual environment is activated
     ```
     $ venv/bin/pip install -r requirements.txt  
     ```
 
 
-## Usage
-  run server:
-    make sure virtual environment is activated 
-    navigate to django_site/ folder  
+### Run Instructions
+  1. Make sure virtual environment is activated, meaning the previous commands must have just been run in the same terminal window
+  2. 
     ```
+    $ cd django_site/
     $ python manage.py runserver  
     ```
 
 ## Coding Conventions
     Follow PEP8    
     Use four spaces for python
-
-## Problems
-If no relation is found from users to profile try:
-```
-$ python django_site/manage.py shell < add_profile_to_user.py
-```
 
 ## Pushing changes to AWS
 Authorized users should have the AWS account credentials. To push changes go to https://console.aws.amazon.com/elasticbeanstalk -> All Applications -> Environments -> django_site -> HealthItForward-new 
