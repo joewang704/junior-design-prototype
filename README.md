@@ -40,10 +40,10 @@ $ virtualenv [-p path/to/python2.7] venv
 ### Run Instructions
   1. Make sure virtual environment is activated, meaning the previous commands must have just been run in the same terminal window
   2. 
-    ```
-    $ cd django_site/
-    $ python manage.py runserver  
-    ```
+  ```
+  $ cd django_site/
+  $ python manage.py runserver  
+  ```
 
 ## Coding Conventions
     Follow PEP8    
