@@ -1,3 +1,15 @@
+## Release Notes 4/24/17
+### New Software
+    - Setup live endpoint at http://healthitforward-new.us-east-1.elasticbeanstalk.com/ hosted on AWS
+    - Setup search funtion
+    - Cleaned code, removing unnecessary print statements or comments
+### Bug Fixes
+### Future Work
+    - Set enpoint to be http://www.healthitforward.com
+    - Get SSL certificate
+    - Implement video upload on posts
+    - Implement flagging feature for posts and comments
+
 ## Install Guide
 ### Prerequisites
 - Python 2.7 and Pip
@@ -36,7 +48,6 @@ $ virtualenv [-p path/to/python2.7] venv
     $ venv/bin/pip install -r requirements.txt  
     ```
 
-
 ### Run Instructions
   1. Make sure virtual environment is activated, meaning the previous commands must have just been run in the same terminal window
   2. 
@@ -53,14 +64,4 @@ $ virtualenv [-p path/to/python2.7] venv
 Authorized users should have the AWS account credentials. To push changes go to https://console.aws.amazon.com/elasticbeanstalk -> All Applications -> Environments -> django_site -> HealthItForward-new 
 In Overview there should be an option to Upload and Deploy. Make sure to zip the root folder as django_site, NOT HealthItForward. after zipping, upload and the changes should be made.
 
-## Release Notes
-### New Software
-    - Setup live endpoint at http://healthitforward-new.us-east-1.elasticbeanstalk.com/ hosted on AWS
-    - Setup search funtion
-    - Cleaned code, removing unnecessary print statements or comments
-### Bug Fixes
-### Future Work
-    - Set enpoint to be http://www.healthitforward.com
-    - Get SSL certificate
-    - Implement video upload on posts
-    - Implement flagging feature for posts and comments
+
