@@ -52,3 +52,14 @@ $ virtualenv [-p path/to/python2.7] venv
 ## Pushing changes to AWS
 Authorized users should have the AWS account credentials. To push changes go to https://console.aws.amazon.com/elasticbeanstalk -> All Applications -> Environments -> django_site -> HealthItForward-new 
 In Overview there should be an option to Upload and Deploy. Make sure to zip the root folder as django_site, NOT HealthItForward. after zipping, upload and the changes should be made.
+
+# Release Notes
+## New Software
+    - Setup live endpoint at http://healthitforward-new.us-east-1.elasticbeanstalk.com/ hosted on AWS
+    - Setup search funtion
+## Bug Fixes
+## Future Work
+    - Set enpoint to be http://www.healthitforward.com
+    - Get SSL certificate
+    - Implement video upload on posts
+    - Implement flagging feature for posts and comments
