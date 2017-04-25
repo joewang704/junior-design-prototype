@@ -5,7 +5,7 @@
     - Cleaned code, removing unnecessary print statements or comments
 ### Bug Fixes
 ### Future Work
-    - Set enpoint to be http://www.healthitforward.com
+    - Set endpoint to be http://www.healthitforward.com
     - Get SSL certificate
     - Implement video upload on posts
     - Implement flagging feature for posts and comments
